@@ -53,6 +53,14 @@
   animation: flash-jumpscare 0.45s cubic-bezier(0.1, 0, 0.9, 1) forwards;
 }
 
+@keyframes fast-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-fast-spin {
+  animation: fast-spin 0.2s linear infinite;
+}
+
 .theme-terrible {
   animation: rainbow 10s infinite;
   font-family: var(--font-comic);

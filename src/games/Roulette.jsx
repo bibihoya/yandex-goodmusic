@@ -69,6 +69,15 @@ export default function Roulette() {
       <h2 className="text-xl font-bold mb-1 tracking-tight text-red-500 drop-shadow-md">R.Casino Рулетка</h2>
       <p className="text-xs mb-4 opacity-70">Спусти весь баланс или сорви джекпот!</p>
 
+      {/* Roulette Wheel Image */}
+      <div className="flex justify-center mb-6 relative z-10 w-32 h-32">
+         <img 
+            src="/7396869.png" 
+            className={`w-full h-full object-contain ${spinning ? 'animate-fast-spin drop-shadow-[0_0_20px_rgba(234,179,8,1)]' : 'drop-shadow-[0_0_5px_rgba(234,179,8,0.3)]'}`} 
+            alt="Wheel" 
+         />
+      </div>
+
       <div className="flex w-full gap-2 mb-4">
         <input 
           type="number" 

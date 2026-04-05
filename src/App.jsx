@@ -60,8 +60,8 @@ function FakeAd() {
 function MainContent() {
   const { uiState, playlist } = useProgression();
 
-  // Show snake game strictly if playlist is empty or if they are in 'beta/stable/premium'
-  const isSnakeAvailable = playlist.length === 0 || uiState.theme !== 'terrible';
+  // Show snake game always in the broken view
+  const isSnakeAvailable = true;
 
   if (uiState.theme === 'yandex_music') {
     return <YandexMusicClone />;
