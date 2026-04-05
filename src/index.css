@@ -42,6 +42,17 @@
   }
 }
 
+@keyframes flash-jumpscare {
+  0% { opacity: 0; }
+  44% { opacity: 1; } /* 0.2s of 0.45s total */
+  77% { opacity: 1; } /* 0.35s (0.2 + 0.15) */
+  100% { opacity: 0; }
+}
+
+.flash-jumpscare {
+  animation: flash-jumpscare 0.45s cubic-bezier(0.1, 0, 0.9, 1) forwards;
+}
+
 .theme-terrible {
   animation: rainbow 10s infinite;
   font-family: var(--font-comic);

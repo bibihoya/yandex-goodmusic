@@ -7,6 +7,7 @@ export default function Roulette() {
   const [betColor, setBetColor] = useState('red');
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState(null);
+  const [isFlashing, setIsFlashing] = useState(false);
 
   const colors = [
     { id: 'red', name: 'Красное (x2)', hex: '#dc2626' },
@@ -46,11 +47,22 @@ export default function Roulette() {
 
       setResult({ color: rollColor, won: winAmount > 0, amount: winAmount });
       setSpinning(false);
+
+      if (winAmount === 0) {
+        setIsFlashing(true);
+        setTimeout(() => setIsFlashing(false), 450); // Exact jump scare duration: 0.2 + 0.15 + 0.1
+      }
     }, 2000);
   };
 
   return (
     <div className="flex flex-col items-center p-4 bg-gray-900 border-2 border-red-700/50 rounded-lg text-white shadow-xl isolate relative overflow-hidden">
+      {isFlashing && (
+        <div className="fixed inset-0 z-[9999] bg-white flash-jumpscare flex items-center justify-center pointer-events-none">
+           <img src="/job_application.jpg" alt="Job Application" className="max-h-screen object-contain drop-shadow-2xl" />
+        </div>
+      )}
+
       {/* Fake Background element */}
       <div className="absolute top-0 right-0 -m-8 w-32 h-32 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
       
@@ -100,12 +112,16 @@ export default function Roulette() {
       </button>
 
       {result && !spinning && (
-        <div className={`mt-4 w-full p-3 rounded font-bold text-center border-2 ${
+        <div className={`mt-4 w-full p-3 rounded font-bold border-2 text-center text-sm ${
           result.won ? 'bg-green-900/50 border-green-500 text-green-300' : 'bg-red-900/50 border-red-500 text-red-300'
         }`}>
           {result.won 
             ? `🎉 ВЫИГРЫШ: +${result.amount} монет! (Выпало: ${colors.find(c=>c.id === result.color).name})`
-            : `💀 ПРОИГРЫШ. Карты не легли. (Выпало: ${colors.find(c=>c.id === result.color).name})`
+            : (
+               <span>
+                  💀 Вы проиграли душу Яндексу в казино, пройдите 6 кругов ада месячную стажировку чтобы искупиться — <a href="https://yandex.ru/yaintern" target="_blank" rel="noreferrer" className="underline text-red-400 hover:text-red-200">подать заявку</a>
+               </span>
+            )
           }
         </div>
       )}

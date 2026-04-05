@@ -6,13 +6,15 @@ const UPGRADE_COSTS = {
   ad_free: 100,
   volume_slider_fixed: 50,
   playlist_expanded_1: 100,
-  ai_tuning: 150
+  ai_tuning: 150,
+  yandex_music_unlock: 500
 };
 
 const getDerivedUiState = (purchases) => {
   const count = purchases.length;
   let theme = 'terrible';
-  if (count >= 5) theme = 'yandex_music';
+  if (purchases.includes('yandex_music_unlock')) theme = 'yandex_music';
+  else if (count >= 5) theme = 'premium';
   else if (count >= 3) theme = 'premium';
   else if (count >= 2) theme = 'stable';
   else if (count >= 1) theme = 'beta';

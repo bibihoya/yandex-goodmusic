@@ -6,7 +6,8 @@ const UPGRADES = [
   { id: 'volume_slider_fixed', name: 'Починить громкость', cost: 50, desc: 'Ползунок ведет себя предсказуемо.' },
   { id: 'ad_free', name: 'Без рекламы', cost: 100, desc: 'Убрать раздражающие баннеры.' },
   { id: 'playlist_expanded_1', name: 'Расширить плейлист', cost: 100, desc: 'Увеличивает максимум треков с 3 до 6.' },
-  { id: 'ai_tuning', name: 'Настройка ИИ', cost: 150, desc: 'Делает ИИ полезным, а не пассивно-агрессивным.' }
+  { id: 'ai_tuning', name: 'Настройка ИИ', cost: 150, desc: 'Делает ИИ полезным, а не пассивно-агрессивным.' },
+  { id: 'yandex_music_unlock', name: 'Настоящая Яндекс Музыка', cost: 500, desc: 'Полностью разблокировать финальный сайт.' }
 ];
 
 export default function Shop() {
