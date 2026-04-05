@@ -7,7 +7,6 @@ const UPGRADE_COSTS = {
   track_skips: 75,
   ad_free: 100,
   playlist_expanded_1: 100,
-  ai_tuning: 150,
   design_upgrade: 200,
   yandex_music_unlock: 500
 };
@@ -28,8 +27,7 @@ const getDerivedUiState = (purchases) => {
     font: purchases.includes('font_normal') ? 'system' : 'comic-sans',
     bgStyle: theme === 'terrible' ? 'rainbow' : 'normal',
     volumeControlType: purchases.includes('volume_slider_fixed') ? 'normal' : 'chaotic',
-    maxPlaylistSize: purchases.includes('playlist_expanded_1') ? 6 : 3,
-    aiTuned: purchases.includes('ai_tuning')
+    maxPlaylistSize: purchases.includes('playlist_expanded_1') ? 6 : 3
   };
 };
 
