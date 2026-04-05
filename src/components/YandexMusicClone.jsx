@@ -8,7 +8,7 @@ export const TRACK_SOURCES = {
   "Дима Билан - Я твой номер один": "/Я твой номер один.mp3", 
   "А4 - Лама Мама": "/А4_ЛАМА_МАМА_ПРЕМЬЕРА_КЛИПА_!_.mp3", 
   "Weezer - Buddy Holly": "/Weezer - Buddy Holly (2024 Remaster).mp3", 
-  "Nabeel - Lazim alshams": "/nabeel_lazim_alshams_نبيل_لازم_الشمس_Official_Audio.mp3",
+  "Nabeel - Lazim alshams": "/nabeel_lazim_alshams.mp3",
   "Betsy, Мария Янковская - Сигма Бой": "/Betsy,_Мария_Янковская_Сигма_Бой_official_Audio.mp3",
   "Синтий трактор — Синий Трактор": ""
 };
