@@ -62,6 +62,22 @@ function FakeAd() {
   );
 }
 
+function VipBanners() {
+  return (
+    <div className="hidden xl:flex fixed left-4 top-0 bottom-0 w-[200px] flex-col justify-around py-8 pointer-events-none opacity-80 z-0">
+       {Array.from({ length: 4 }).map((_, i) => (
+         <img 
+           key={i} 
+           src="/VIP.png" 
+           alt="VIP" 
+           className="w-full object-contain animate-bounce drop-shadow-[0_0_15px_rgba(255,215,0,0.8)]" 
+           style={{ animationDelay: `${i * 0.3}s`, animationDuration: '2s' }} 
+         />
+       ))}
+    </div>
+  );
+}
+
 function MainContent() {
   const { uiState, playlist } = useProgression();
 
@@ -105,9 +121,10 @@ function MainContent() {
       </header>
 
       <FakeAd />
+      <VipBanners />
       <DevLog />
 
-      <main className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
+      <main className="w-full max-w-6xl flex flex-col md:flex-row gap-8 relative z-10">
         {/* Left Column: Player and Games */}
         <div className="flex-1 flex flex-col gap-6">
           <Player />
