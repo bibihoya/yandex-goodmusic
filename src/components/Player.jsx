@@ -14,7 +14,7 @@ export default function Player() {
   const [aiResponse, setAiResponse] = useState('');
   const [isAiLoading, setIsAiLoading] = useState(false);
 
-  const track = playlist[currentIdx] || "No Tracks in Playlist";
+  const track = playlist[currentIdx] || "В плейлисте нет треков";
 
   const handleNext = () => {
       if (playlist.length === 0) return;
@@ -45,7 +45,7 @@ export default function Player() {
             {track}
         </h2>
         <div className="text-sm opacity-50 mb-6">
-            Playlist slots used: {playlist.length} / {uiState.maxPlaylistSize}
+            Занято слотов плейлиста: {playlist.length} / {uiState.maxPlaylistSize}
         </div>
         
         <div className="flex items-center gap-6 mb-4">
@@ -64,7 +64,7 @@ export default function Player() {
         
         {playlist.length === 0 && (
             <p className="mt-4 text-orange-400 text-sm animate-pulse">
-                Play Snake to find tracks!
+                Сыграй в Змейку, чтобы найти треки!
             </p>
         )}
       </div>
@@ -72,16 +72,16 @@ export default function Player() {
       {/* AI Radio Section */}
       <div className="flex-1 flex flex-col p-4 border border-purple-500/30 rounded-lg bg-gray-900/50">
           <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
-              🤖 AI Radio {uiState.aiTuned ? '(Premium)' : '(Broken)'}
+              🤖 ИИ Радио {uiState.aiTuned ? '(Премиум)' : '(Сломано)'}
           </h3>
-          <p className="text-xs mb-4 opacity-70">Ask the AI for a song recommendation or trivia.</p>
+          <p className="text-xs mb-4 opacity-70">Попроси у ИИ рекомендацию песни или факт.</p>
           
           <div className="flex gap-2 mb-4">
               <input 
                   type="text" 
                   value={aiQuery}
                   onChange={(e) => setAiQuery(e.target.value)}
-                  placeholder={uiState.aiTuned ? "E.g. Recommend some jazz" : "C0RRUPTED INP0UT.."}
+                  placeholder={uiState.aiTuned ? "Например: Посоветуй немного джаза" : "П0ВРЕЖДЕННЫЙ ВВ0Д.."}
                   className="flex-1 p-2 bg-gray-800 text-white rounded border border-gray-600"
               />
               <button 
@@ -89,12 +89,12 @@ export default function Player() {
                   disabled={isAiLoading}
                   className="btn-primary whitespace-nowrap"
               >
-                  {isAiLoading ? '...' : 'Ask AI'}
+                  {isAiLoading ? '...' : 'Спросить ИИ'}
               </button>
           </div>
 
           <div className="flex-1 p-3 bg-black/40 rounded border border-gray-700 text-sm overflow-y-auto min-h-[100px]">
-              {aiResponse ? aiResponse : <span className="opacity-40">Waiting for query...</span>}
+              {aiResponse ? aiResponse : <span className="opacity-40">Ожидание запроса...</span>}
           </div>
       </div>
     </div>

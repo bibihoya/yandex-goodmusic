@@ -22,7 +22,7 @@ export default function VolumeControl() {
       const jump = Math.random() > 0.5 ? Math.random() * 80 : e.target.value;
       setVolume(jump);
       // throw an intentional silent error for DevLog
-      if (Math.random() > 0.8) setTimeout(() => { throw new Error("Volume slider detached from reality"); }, 10);
+      if (Math.random() > 0.8) setTimeout(() => { throw new Error("Ползунок громкости оторвался от реальности"); }, 10);
     } else {
       setVolume(e.target.value);
     }

@@ -10,14 +10,14 @@ import './index.css';
 function ErrorBoundaryFallback({ error }) {
   return (
     <div className="p-8 bg-red-900 text-white font-mono h-screen flex flex-col items-center justify-center">
-      <h1 className="text-4xl mb-4 text-yellow-300">FATAL SYSTEM ERROR</h1>
-      <p className="mb-4">The music stopped. And so did the React tree.</p>
+      <h1 className="text-4xl mb-4 text-yellow-300">ФАТАЛЬНАЯ СИСТЕМНАЯ ОШИБКА</h1>
+      <p className="mb-4">Музыка остановилась. Как и дерево React.</p>
       <pre className="bg-black/50 p-4 rounded max-w-2xl overflow-auto">{error.message}</pre>
       <button 
         className="mt-8 px-6 py-2 bg-yellow-500 text-black font-bold hover:bg-yellow-400"
         onClick={() => window.location.reload()}
       >
-        Reboot System
+        Перезагрузить систему
       </button>
     </div>
   );
@@ -47,10 +47,10 @@ function FakeAd() {
 
   return (
     <div className="fixed top-20 right-10 w-64 bg-yellow-400 border-4 border-red-500 p-4 text-center z-40 transform rotate-3 shadow-2xl animate-pulse text-black">
-      <h3 className="font-extrabold text-xl text-red-600 flash">🚀 WIN 1,000,000 COINS!</h3>
-      <p className="text-xs mb-2">Click here to claim your daily prize at R.Casino!*</p>
-      <p className="text-[10px] opacity-70">*Actually you can't click because it's a fake ad.</p>
-      <p className="mt-2 text-sm font-bold">(Buy 'Ad-Free' to remove me!)</p>
+      <h3 className="font-extrabold text-xl text-red-600 flash">🚀 ВЫИГРАЙ 1 000 000 МОНЕТ!</h3>
+      <p className="text-xs mb-2">Кликни здесь, чтобы забрать свой ежедневный приз в R.Казино!*</p>
+      <p className="text-[10px] opacity-70">*Вообще-то ты не можешь кликнуть, потому что это фейковая реклама.</p>
+      <p className="mt-2 text-sm font-bold">(Купи 'Антирекламу', чтобы убрать меня!)</p>
     </div>
   );
 }
@@ -73,7 +73,7 @@ function MainContent() {
               target="_blank" rel="noreferrer"
               className="text-yellow-400 animate-bounce font-bold"
            >
-             ✨ Get Normal Version ✨
+             ✨ Получить нормальную версию ✨
            </a>
         )}
       </header>
@@ -99,8 +99,8 @@ function MainContent() {
       </main>
       
       <footer className="mt-16 text-center text-sm opacity-50 pb-8">
-        <p>A completely functional, totally not broken mockup for Yandex Minus hackathon.</p>
-        <p>Warning: Contains high levels of "features".</p>
+        <p>Абсолютно рабочий, совершенно не сломанный макет для хакатона Яндекс Минус.</p>
+        <p>Внимание: Содержит высокий уровень «фич».</p>
       </footer>
     </div>
   );

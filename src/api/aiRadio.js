@@ -4,10 +4,10 @@ export async function askAIRadio(query, isUpgraded) {
   if (!isUpgraded) {
     // Return nonsense or random delayed reply simulating awful service
     const nonsense = [
-      "I am currently computing the answer... 100 years remaining.",
-      "Bzzt... 404 Radio Not Found. Listen to the sound of silence.",
-      "Could you repeat that? I was busy indexing your browser history.",
-      "Error: Too much logic detected. Reverting to basic mode."
+      "Вычисляю ответ... осталось 100 лет.",
+      "Бззт... 404 Радио не найдено. Слушай звук тишины.",
+      "Не могли бы вы повторить? Я был занят индексацией вашей истории браузера.",
+      "Ошибка: Обнаружено слишком много логики. Возврат в базовый режим."
     ];
     return new Promise(resolve => {
         setTimeout(() => resolve(nonsense[Math.floor(Math.random() * nonsense.length)]), 1500 + Math.random() * 2000);
@@ -29,7 +29,7 @@ export async function askAIRadio(query, isUpgraded) {
       body: JSON.stringify({
         "model": "google/gemma-2-9b-it",
         "messages": [
-          {"role": "system", "content": "You are a helpful, very brief music DJ AI."},
+          {"role": "system", "content": "Ты полезный, очень краткий музыкальный ИИ-диджей."},
           {"role": "user", "content": query}
         ]
       })
@@ -38,6 +38,6 @@ export async function askAIRadio(query, isUpgraded) {
     return data.choices[0].message.content;
   } catch (error) {
     console.warn("AI API fallback active:", error);
-    return `You asked for: "${query}". I am currently in Offline Premium mode, so I will pretend I fulfilled your request. Enjoy the imaginary tunes!`;
+    return `Вы попросили: "${query}". В настоящее время я нахожусь в режиме Офлайн Премиум, поэтому я сделаю вид, что выполнил ваш запрос. Наслаждайтесь воображаемыми мелодиями!`;
   }
 }

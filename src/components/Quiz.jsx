@@ -4,32 +4,32 @@ import { useProgression } from '../store/useProgression';
 const QUESTIONS = [
   {
     difficulty: 'easy',
-    q: "What does 'FKN' usually mean in HSE context?",
-    options: ["Faculty of Knowledge", "Faculty of Computer Science", "Funny Kittens Network"],
+    q: "Что обычно означает 'ФКН' в контексте ВШЭ?",
+    options: ["Факультет карточных игр", "Факультет компьютерных наук", "Сеть забавных котят"],
     a: 1
   },
   {
     difficulty: 'easy',
-    q: "When you try to exit Vim, what happens?",
-    options: ["You successfully exit", "You reboot the PC", "You generate random characters in fear"],
+    q: "Что происходит, когда вы пытаетесь выйти из Vim?",
+    options: ["Вы успешно выходите", "Вы перезагружаете ПК", "Вы в ужасе печатаете случайные символы"],
     a: 2
   },
   {
     difficulty: 'medium',
-    q: "Is mayonnaise an instrument?",
-    options: ["Yes, Patrick", "No"],
+    q: "Является ли майонез музыкальным инструментом?",
+    options: ["Да, Патрик", "Нет"],
     a: 1
   },
   {
     difficulty: 'medium',
-    q: "What does 'Yandex Minus' stand for?",
-    options: ["A discount tier", "The opposite of Plus", "When your code is so bad it removes features"],
+    q: "Что означает 'Яндекс Минус'?",
+    options: ["Скидочный уровень", "Противоположность Плюсу", "Когда твой код настолько плох, что удаляет фичи"],
     a: 2
   },
   {
     difficulty: 'hard',
-    q: "How many hours of sleep does a hackathon participant get?",
-    options: ["8", "0-2", "-1 (Time debt)"],
+    q: "Сколько часов спит участник хакатона?",
+    options: ["8", "0-2", "-1 (Временной долг)"],
     a: 2
   }
 ];
@@ -49,9 +49,9 @@ export default function Quiz() {
       if (diffCount > 5) reward = 2; // diminishing returns
       
       updateQuizProgress(question.difficulty, reward);
-      setMessage(`Correct! +${reward} coins.`);
+      setMessage(`Верно! +${reward} монет.`);
     } else {
-       setMessage("Wrong. Skill issue.");
+       setMessage("Неправильно. Проблема навыка (Skill issue).");
     }
     
     setTimeout(() => {
@@ -64,8 +64,8 @@ export default function Quiz() {
 
   return (
     <div className="p-4 bg-yellow-900/40 border-2 border-yellow-500 rounded text-center">
-      <h3 className="text-xl font-bold mb-2">Pop Quiz</h3>
-      <p className="text-sm opacity-80 mb-4">Answer questions to farm coins. Don't spam, rewards decrease over time.</p>
+      <h3 className="text-xl font-bold mb-2">Внезапная викторина</h3>
+      <p className="text-sm opacity-80 mb-4">Отвечай на вопросы, чтобы фармить монеты. Не спамь, награда со временем уменьшается.</p>
       
       {!message ? (
         <div>

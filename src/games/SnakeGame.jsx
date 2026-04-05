@@ -114,8 +114,8 @@ export default function SnakeGame() {
 
   return (
     <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg text-white">
-      <h2 className="text-xl font-bold mb-2">Snake Playlist Builder</h2>
-      <p className="mb-4">Score: {score} | Play to earn tracks & coins</p>
+      <h2 className="text-xl font-bold mb-2">Змейка для плейлиста</h2>
+      <p className="mb-4">Счет: {score} | Играй, чтобы заработать треки и монеты</p>
       
       <div 
         className="relative bg-black"
@@ -144,12 +144,12 @@ export default function SnakeGame() {
         />
         {gameOver && (
           <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center">
-            <p className="text-red-500 font-bold text-2xl mb-4">GAME OVER</p>
-            <button onClick={resetGame} className="btn-primary">Try Again</button>
+            <p className="text-red-500 font-bold text-2xl mb-4">ИГРА ОКОНЧЕНА</p>
+            <button onClick={resetGame} className="btn-primary">Попробовать снова</button>
           </div>
         )}
       </div>
-      <p className="mt-4 text-xs opacity-70 border p-2 border-dashed">Use Arrow Keys to move. Eating apples grants 5 coins and tries to discover a new track for your playlist if you have slots open.</p>
+      <p className="mt-4 text-xs opacity-70 border p-2 border-dashed">Используйте стрелки для движения. Поедание яблок дает 5 монет и пытается открыть новый трек для плейлиста, если есть свободные слоты.</p>
     </div>
   );
 }
