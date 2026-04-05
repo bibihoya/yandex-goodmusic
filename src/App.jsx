@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useProgression } from './store/useProgression';
 import Player from './components/Player';
 import Shop from './components/Shop';
