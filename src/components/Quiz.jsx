@@ -1,80 +1,136 @@
 import { useState } from 'react';
 import { useProgression } from '../store/useProgression';
 
-const QUESTIONS = [
+const SMART_QUESTIONS = [
   {
-    difficulty: 'easy',
-    q: "Что обычно означает 'ФКН' в контексте ВШЭ?",
-    options: ["Факультет карточных игр", "Факультет компьютерных наук", "Сеть забавных котят"],
+    q: "Что утверждает условие Линдеберга?",
+    options: [
+      "Все случайные величины должны быть одинаково распределены",
+      "Среднее каждой величины равно нулю",
+      "Вклад больших отклонений в сумму становится пренебрежимо малым"
+    ],
+    a: 2
+  },
+  {
+    q: "Что делает преобразование Фурье?",
+    options: [
+      "Находит производную функции",
+      "Переводит сигнал из временной области в частотную",
+      "Считает среднее значение функции"
+    ],
     a: 1
   },
   {
-    difficulty: 'easy',
-    q: "Что происходит, когда вы пытаетесь выйти из Vim?",
-    options: ["Вы успешно выходите", "Вы перезагружаете ПК", "Вы в ужасе печатаете случайные символы"],
+    q: "Что не является настоящей теоремой?",
+    options: [
+      "Теорема о волосатом шаре",
+      "Теорема о бутерброде с ветчиной",
+      "Крайняя предельная теорема",
+      "Теорема о пьяном мужике"
+    ],
     a: 2
   },
   {
-    difficulty: 'medium',
-    q: "Является ли майонез музыкальным инструментом?",
-    options: ["Да, Патрик", "Нет"],
+    q: "Что такое syscall с точки зрения механизма?",
+    options: [
+      "Функция из стандартной библиотеки (libc)",
+      "Прерывание/инструкция, переводящая выполнение из user mode в kernel mode",
+      "Любой вызов функции в программе"
+    ],
+    a: 1
+  }
+];
+
+const NOT_SMART_QUESTIONS = [
+  {
+    q: "Что нужно делать, если в аудитории нет маркеров?",
+    options: ["Сходить в соседнюю", "Отменить лекцию", "Жать красную кнопку"],
+    a: 0
+  },
+  {
+    q: "Какие 2 животных объединяется в триппи-троппи-троппа-триппа?",
+    options: ["Рыба и корова", "Кот и креветка", "Богомол и лошадь"],
     a: 1
   },
   {
-    difficulty: 'medium',
-    q: "Что означает 'Яндекс Минус'?",
-    options: ["Скидочный уровень", "Противоположность Плюсу", "Когда твой код настолько плох, что удаляет фичи"],
+    q: "Кто снимался в рекламе Яндекс Мопа?",
+    options: ["Том Круз", "Тимоти Шаламе", "Райан Гослинг", "Юра Борисов"],
     a: 2
   },
   {
-    difficulty: 'hard',
-    q: "Сколько часов спит участник хакатона?",
-    options: ["8", "0-2", "-1 (Временной долг)"],
-    a: 2
+    q: "“Гомоморфный образ группы в честь … изоморфен фактор-группе по ядру гомоморфизма”",
+    options: ["Победы коммунизма", "Свержения марксизма", "Отмены гомосексуализма"],
+    a: 0
+  },
+  {
+    q: "Как расшифровывается ПМИ?",
+    options: ["Прикладная музыка и искусство", "Плейбой-математик-интеллектуал", "Пиво мартини игристое"],
+    a: 1
   }
 ];
 
 export default function Quiz() {
+  const [mode, setMode] = useState('smart'); // 'smart' or 'dumb'
   const [currentIdx, setCurrentIdx] = useState(0);
   const [message, setMessage] = useState('');
   const { updateQuizProgress, quizProgress } = useProgression();
 
+  const questions = mode === 'smart' ? SMART_QUESTIONS : NOT_SMART_QUESTIONS;
+  const question = questions[currentIdx] || questions[0];
+
   const handleAnswer = (idx) => {
-    const question = QUESTIONS[currentIdx];
     if (idx === question.a) {
-      // anti-farm: earn less if you've answered a lot
-      const diffCount = quizProgress[question.difficulty];
-      let reward = 20;
-      if (diffCount > 2) reward = 10;
-      if (diffCount > 5) reward = 2; // diminishing returns
-      
-      updateQuizProgress(question.difficulty, reward);
-      setMessage(`Верно! +${reward} функоинов`)
+      // Simplified reward logic for the new types
+      const reward = mode === 'smart' ? 30 : 15;
+      updateQuizProgress(mode, reward);
+      setMessage(`Верно! +${reward} функоинов`);
     } else {
-       setMessage("Неправильно. Проблема навыка (Skill issue).");
+      setMessage("Неправильно. Проблема навыка (Skill issue).");
     }
     
     setTimeout(() => {
         setMessage('');
-        setCurrentIdx((currentIdx + 1) % QUESTIONS.length); 
+        setCurrentIdx((prev) => (prev + 1) % questions.length); 
     }, 1500);
   };
 
-  const question = QUESTIONS[currentIdx];
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    setCurrentIdx(0);
+    setMessage('');
+  };
 
   return (
-    <div className="p-4 bg-yellow-900/40 border-2 border-yellow-500 rounded text-center">
-      <h3 className="text-xl font-bold mb-2">Внезапная викторина</h3>
-      <p className="text-sm opacity-80 mb-4">Отвечай на вопросы, чтобы фармить функоины. Не спамь, награда со временем уменьшается.</p>
+    <div className="p-4 bg-yellow-900/40 border-2 border-yellow-500 rounded text-center flex flex-col min-h-[350px]">
+      <h3 className="text-xl font-bold mb-1">Викторина ВШЭ</h3>
+      
+      <div className="flex justify-center gap-2 mb-4">
+        <button 
+          onClick={() => handleModeChange('smart')}
+          className={`px-3 py-1 text-xs rounded-full font-bold transition ${mode === 'smart' ? 'bg-yellow-500 text-black' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+        >
+          🧠 УМНОЕ
+        </button>
+        <button 
+          onClick={() => handleModeChange('dumb')}
+          className={`px-3 py-1 text-xs rounded-full font-bold transition ${mode === 'dumb' ? 'bg-pink-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+        >
+          🤡 НЕУМНОЕ
+        </button>
+      </div>
+
+      <p className="text-[10px] opacity-70 mb-4 uppercase tracking-widest">
+        {mode === 'smart' ? 'Режим для гигачадов матана' : 'Режим для ценителей мемов'}
+      </p>
       
       {!message ? (
-        <div>
-          <p className="mb-4 font-semibold text-lg">{question.q}</p>
-          <div className="flex flex-col gap-2">
+        <div className="flex-1 flex flex-col">
+          <p className="mb-6 font-semibold text-base leading-snug">{question.q}</p>
+          <div className="flex flex-col gap-2 mt-auto">
             {question.options.map((opt, idx) => (
               <button 
                 key={idx}
-                className="btn-primary hover:bg-yellow-600 transition"
+                className="btn-primary py-2 text-sm hover:scale-[1.02] transition-transform active:scale-95"
                 onClick={() => handleAnswer(idx)}
               >
                 {opt}
@@ -83,7 +139,7 @@ export default function Quiz() {
           </div>
         </div>
       ) : (
-        <div className="text-2xl font-bold p-8 animate-pulse">
+        <div className="flex-1 flex items-center justify-center text-xl font-bold p-8 animate-pulse text-yellow-400">
             {message}
         </div>
       )}

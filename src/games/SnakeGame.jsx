@@ -84,7 +84,7 @@ export default function SnakeGame() {
         // Food collision
         if (head[0] === food[0] && head[1] === food[1]) {
           setScore(s => s + 1);
-          addCoins(5);
+          addCoins(7);
           
           const availableTracks = ALL_TRACKS.filter(t => !playlist.includes(t));
           if (availableTracks.length > 0 && playlist.length < uiState.maxPlaylistSize) {
