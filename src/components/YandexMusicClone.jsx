@@ -3,7 +3,15 @@ import { useProgression } from '../store/useProgression';
 import { Play, Pause, SkipForward, SkipBack, Search, Home, Mic2, Heart, ListMusic, Download, Shuffle, Repeat } from 'lucide-react';
 
 // You can plug real MP3 urls here later. Right now they are just nulls to avoid errors.
-const TRACK_SOURCES = {
+export const TRACK_SOURCES = {
+  "LIL UZI VERT - XO TOUR Llif3": "", 
+  "Travis Scott - SICKO MODE": "", 
+  "Playboi Carti - Magnolia": "", 
+  "Kanye West - Father Stretch...": "", 
+  "Oxxxymiron - Город под подошвой": "",
+  "Скриптонит - Цепи": "",
+  "Pharaoh - Дико, например": "",
+  "Boulevard Depo - Кащенко": "",
   "Darude - Sandstorm": "", 
   "Rick Astley - Never Gonna Give You Up": "", 
   "Smash Mouth - All Star": "", 

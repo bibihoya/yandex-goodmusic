@@ -2,28 +2,55 @@ import { useState } from 'react';
 import { useProgression } from '../store/useProgression';
 import VolumeControl from './VolumeControl';
 import { Play, Pause, SkipForward, SkipBack } from 'lucide-react';
+import { TRACK_SOURCES } from './YandexMusicClone';
+import { useRef, useEffect } from 'react';
 
 export default function Player() {
-  const { playlist, uiState } = useProgression();
+  const { playlist, uiState, volume } = useProgression();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   const track = playlist[currentIdx] || "В плейлисте нет треков";
+  const trackSrc = TRACK_SOURCES[track] || "";
+
+  // Listen to volume changes
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.volume = (volume || 50) / 100;
+  }, [volume]);
+
+  // Handle play/pause
+  useEffect(() => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.play().catch(() => {});
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying, currentIdx]);
 
   const handleNext = () => {
       if (!uiState.skipsEnabled) return alert("Сначала купите возможность скипать треки!");
       if (playlist.length === 0) return;
       setCurrentIdx((currentIdx + 1) % playlist.length);
+      setIsPlaying(true);
   };
 
   const handlePrev = () => {
       if (!uiState.skipsEnabled) return alert("Сначала купите возможность скипать треки!");
       if (playlist.length === 0) return;
       setCurrentIdx((currentIdx - 1 + playlist.length) % playlist.length);
+      setIsPlaying(true);
   };
 
   return (
     <div className="w-full flex w-full flex-col lg:flex-row gap-4 p-4 border-2 border-white/20 rounded-xl bg-black/60 shadow-xl backdrop-blur-sm">
+      <audio 
+        ref={audioRef}
+        src={trackSrc}
+        onEnded={handleNext}
+      />
       
       {/* Player Section */}
       <div className="flex-1 flex flex-col items-center justify-center p-4 border border-blue-500/30 rounded-lg">
