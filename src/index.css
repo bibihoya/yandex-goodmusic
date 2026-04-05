@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #ff0000;
+  --font-comic: "Comic Sans MS", "Comic Sans", cursive;
+  --font-system: system-ui, -apple-system, sans-serif;
+}
+
+@keyframes rainbow {
+  0% { background-color: #ff0000; }
+  14% { background-color: #ff7f00; }
+  28% { background-color: #ffff00; }
+  42% { background-color: #00ff00; }
+  57% { background-color: #0000ff; }
+  71% { background-color: #4b0082; }
+  85% { background-color: #9400d3; }
+  100% { background-color: #ff0000; }
+}
+
+@keyframes chaotic-shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.theme-terrible {
+  animation: rainbow 10s infinite;
+  font-family: var(--font-comic);
+}
+
+.theme-terrible .btn-primary {
+  background-color: yellow;
+  color: red;
+  border: 3px dashed blue;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.theme-beta {
+  background-color: #f0f0f0;
+  font-family: var(--font-system);
+}
+
+.theme-beta .btn-primary {
+  background-color: #e0e0e0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 16px;
+}
+
+.theme-stable {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: var(--font-system);
+}
+
+.theme-stable .btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  transition: background-color 0.2s;
+}
+.theme-stable .btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.theme-premium {
+  background-color: #0f172a;
+  color: #f8fafc;
+  font-family: var(--font-system);
+}
+
+.theme-premium .btn-primary {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+.theme-premium .btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.cursor-chaotic {
+  cursor: help;
+}
+
+.chaotic-move {
+  animation: chaotic-shake 0.5s infinite;
+}
+
+body, html, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
