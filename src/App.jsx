@@ -109,7 +109,7 @@ function MainContent() {
   }
 
   return (
-    <div className={`min-h-screen theme-${uiState.theme} transition-colors duration-1000 overflow-x-hidden p-6 relative flex flex-col items-center`}>
+    <div className={`min-h-screen theme-${uiState.theme} font-${uiState.font} transition-colors duration-1000 overflow-x-hidden p-6 relative flex flex-col items-center`}>
       <header className="w-full max-w-6xl flex justify-between items-center py-4 mb-8">
         <h1 className="text-4xl font-extrabold tracking-tighter">
           Yandex <span className="text-red-500 drop-shadow-md">Minus</span>
