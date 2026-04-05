@@ -54,7 +54,7 @@ function FakeAd() {
       rel="noreferrer"
       className="fixed top-20 right-10 w-64 bg-yellow-400 border-4 border-red-500 p-4 text-center z-40 transform rotate-3 shadow-2xl animate-pulse text-black cursor-pointer hover:scale-105 transition-transform block"
     >
-      <h3 className="font-extrabold text-xl text-red-600 flash">🚀 ВЫИГРАЙ 1 000 000 МОНЕТ!</h3>
+      <h3 className="font-extrabold text-xl text-red-600 flash">🚀 ВЫИГРАЙ 1 000 000 ФУНКОИНОВ!</h3>
       <p className="text-xs mb-2">Кликни здесь, чтобы забрать свой ежедневный приз в R.Казино!*</p>
       <p className="text-[10px] opacity-70">*Не ведись, это матан!</p>
       <p className="mt-2 text-sm font-bold opacity-80">(Купи 'Антирекламу', чтобы убрать меня)</p>

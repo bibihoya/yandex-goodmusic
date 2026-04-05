@@ -83,7 +83,7 @@ export default function SnakeGame() {
         // Food collision
         if (head[0] === food[0] && head[1] === food[1]) {
           setScore(s => s + 1);
-          addCoins(5);
+          addCoins(1000);
           
           const availableTracks = ALL_TRACKS.filter(t => !playlist.includes(t));
           if (availableTracks.length > 0 && playlist.length < uiState.maxPlaylistSize) {
@@ -115,7 +115,7 @@ export default function SnakeGame() {
   return (
     <div className="flex flex-col items-center p-4 bg-gray-800 rounded-lg text-white">
       <h2 className="text-xl font-bold mb-2">Змейка для плейлиста</h2>
-      <p className="mb-4">Счет: {score} | Играй, чтобы заработать треки и монеты</p>
+      <p className="mb-4">Счет: {score} | Играй, чтобы заработать треки и функоины</p>
       
       <div 
         className="relative bg-black"
@@ -149,7 +149,7 @@ export default function SnakeGame() {
           </div>
         )}
       </div>
-      <p className="mt-4 text-xs opacity-70 border p-2 border-dashed">Используйте стрелки для движения. Поедание яблок дает 5 монет и пытается открыть новый трек для плейлиста, если есть свободные слоты.</p>
+      <p className="mt-4 text-xs opacity-70 border p-2 border-dashed">Используйте стрелки для движения. Поедание яблок дает 1000 функоинов и пытается открыть новый трек для плейлиста, если есть свободные слоты.</p>
     </div>
   );
 }

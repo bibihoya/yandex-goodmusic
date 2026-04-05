@@ -49,7 +49,7 @@ export default function Quiz() {
       if (diffCount > 5) reward = 2; // diminishing returns
       
       updateQuizProgress(question.difficulty, reward);
-      setMessage(`Верно! +${reward} монет.`);
+      setMessage(`Верно! +${reward} функоинов`)
     } else {
        setMessage("Неправильно. Проблема навыка (Skill issue).");
     }
@@ -65,7 +65,7 @@ export default function Quiz() {
   return (
     <div className="p-4 bg-yellow-900/40 border-2 border-yellow-500 rounded text-center">
       <h3 className="text-xl font-bold mb-2">Внезапная викторина</h3>
-      <p className="text-sm opacity-80 mb-4">Отвечай на вопросы, чтобы фармить монеты. Не спамь, награда со временем уменьшается.</p>
+      <p className="text-sm opacity-80 mb-4">Отвечай на вопросы, чтобы фармить функоины. Не спамь, награда со временем уменьшается.</p>
       
       {!message ? (
         <div>
