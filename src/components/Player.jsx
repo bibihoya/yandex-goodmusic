@@ -24,6 +24,8 @@ export default function Player() {
   const audioRef = useRef(null);
   const audioCtxRef = useRef(null);
   const sourceNodeRef = useRef(null);
+  const lowpassRef = useRef(null);
+  const distortionRef = useRef(null);
 
   const track = playlist[currentIdx] || "В плейлисте нет треков";
   const trackSrc = TRACK_SOURCES[track] || "";
@@ -46,8 +48,12 @@ export default function Player() {
             
             // 2. Overdrive / Clip it heavily (WaveShaper)
             const distortion = audioCtxRef.current.createWaveShaper();
-            distortion.curve = makeDistortionCurve(800); // 800 = aggressive ear rape clipping
+            distortion.curve = makeDistortionCurve(800); 
             distortion.oversample = '4x';
+
+            // Store nodes in refs for live updates
+            lowpassRef.current = lowpass;
+            distortionRef.current = distortion;
 
             // String them together
             sourceNodeRef.current.connect(lowpass);
@@ -56,8 +62,21 @@ export default function Player() {
         }
     }
 
+    // Apply or remove distortion based on upgrade
+    if (lowpassRef.current && distortionRef.current && audioCtxRef.current) {
+        if (uiState.audioTuned) {
+            // High-fidelity mode
+            lowpassRef.current.frequency.setTargetAtTime(20000, audioCtxRef.current.currentTime, 0.05);
+            distortionRef.current.curve = null;
+        } else {
+            // Trash mode
+            lowpassRef.current.frequency.setTargetAtTime(600, audioCtxRef.current.currentTime, 0.05);
+            distortionRef.current.curve = makeDistortionCurve(800);
+        }
+    }
+
     audioRef.current.volume = (volume || 50) / 100;
-  }, [volume]);
+  }, [volume, uiState.audioTuned]);
 
   // Handle play/pause with Context Resuming
   useEffect(() => {

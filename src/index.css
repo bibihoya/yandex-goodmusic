@@ -166,3 +166,14 @@ body, html, #root {
 .flash {
   animation: flash 0.5s infinite;
 }
+
+@keyframes red-button-overlay {
+  0% { opacity: 0; }
+  31% { opacity: 1; } /* 0.5s of 1.6s total */
+  93% { opacity: 1; } /* +1s (1.5s total) */
+  100% { opacity: 0; } /* 0.1s exit */
+}
+
+.animate-red-button-overlay {
+  animation: red-button-overlay 1.6s forwards;
+}

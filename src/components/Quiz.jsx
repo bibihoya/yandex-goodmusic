@@ -45,7 +45,7 @@ const NOT_SMART_QUESTIONS = [
   {
     q: "Что нужно делать, если в аудитории нет маркеров?",
     options: ["Сходить в соседнюю", "Отменить лекцию", "Жать красную кнопку"],
-    a: 0
+    a: 2
   },
   {
     q: "Какие 2 животных объединяется в триппи-троппи-троппа-триппа?",
@@ -73,12 +73,17 @@ export default function Quiz() {
   const [mode, setMode] = useState('smart'); // 'smart' or 'dumb'
   const [currentIdx, setCurrentIdx] = useState(0);
   const [message, setMessage] = useState('');
-  const { updateQuizProgress, quizProgress } = useProgression();
+  const { updateQuizProgress, quizProgress, triggerRedButton } = useProgression();
 
   const questions = mode === 'smart' ? SMART_QUESTIONS : NOT_SMART_QUESTIONS;
   const question = questions[currentIdx] || questions[0];
 
   const handleAnswer = (idx) => {
+    // Special condition: "Жать красную кнопку" is index 2 in the first question of NOT_SMART_QUESTIONS
+    if (mode === 'dumb' && currentIdx === 0 && idx === 2) {
+      triggerRedButton();
+    }
+
     if (idx === question.a) {
       // Simplified reward logic for the new types
       const reward = mode === 'smart' ? 30 : 15;

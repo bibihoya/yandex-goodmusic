@@ -62,6 +62,54 @@ function FakeAd() {
   );
 }
 
+function RedButtonEffect() {
+  const { isRedButtonActive } = useProgression();
+  
+  useEffect(() => {
+    if (isRedButtonActive) {
+      const s1 = new Audio('/flashbang-gah-dayum.mp3');
+      const s2 = new Audio('/headshot_1.mp3');
+      s1.play().catch(() => {});
+      s2.play().catch(() => {});
+    }
+  }, [isRedButtonActive]);
+
+  if (!isRedButtonActive) return null;
+
+  return (
+    <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black animate-red-button-overlay">
+       <video 
+         src="/gustokashin.MP4" 
+         autoPlay 
+         className="max-h-screen w-full object-contain"
+         onEnded={(e) => e.target.parentElement.style.opacity = 0}
+       />
+    </div>
+  );
+}
+
+function SideBannersRight() {
+  const { uiState } = useProgression();
+  if (uiState.theme === 'yandex_music') return null;
+
+  return (
+    <div className="hidden xl:flex fixed right-4 top-0 bottom-0 w-[200px] flex-col justify-around py-8 pointer-events-none opacity-80 z-0">
+        <img 
+           src="/linal.png" 
+           alt="Linal" 
+           className="w-full object-contain animate-bounce drop-shadow-[0_0_15px_rgba(30,144,255,0.8)]" 
+           style={{ animationDuration: '3s' }} 
+         />
+         <img 
+           src="/sokolov.png" 
+           alt="Sokolov" 
+           className="w-full object-contain animate-pulse drop-shadow-[0_0_15px_rgba(255,69,0,0.8)]" 
+           style={{ animationDuration: '4s' }} 
+         />
+    </div>
+  );
+}
+
 function VipBanners() {
   const { purchasedUpgrades } = useProgression();
 
@@ -127,6 +175,8 @@ function MainContent() {
 
       <FakeAd />
       <VipBanners />
+      <SideBannersRight />
+      <RedButtonEffect />
       <DevLog />
 
       <main className="w-full max-w-6xl flex flex-col md:flex-row gap-8 relative z-10">

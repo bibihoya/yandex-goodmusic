@@ -5,6 +5,7 @@ const UPGRADE_COSTS = {
   font_normal: 50,
   volume_slider_fixed: 50,
   track_skips: 75,
+  audio_quality_fix: 150,
   ad_free: 100,
   playlist_expanded_1: 100,
   design_upgrade: 200,
@@ -26,6 +27,7 @@ const getDerivedUiState = (purchases) => {
     skipsEnabled: purchases.includes('track_skips'),
     font: purchases.includes('font_normal') ? 'system' : 'comic-sans',
     bgStyle: theme === 'terrible' ? 'rainbow' : 'normal',
+    audioTuned: purchases.includes('audio_quality_fix'),
     volumeControlType: purchases.includes('volume_slider_fixed') ? 'normal' : 'chaotic',
     maxPlaylistSize: purchases.includes('playlist_expanded_1') ? 6 : 3
   };
@@ -43,6 +45,12 @@ export const useProgression = create(
       quizProgress: { easy: 0, medium: 0, hard: 0 },
       snakeHighScore: 0,
       uiState: getDerivedUiState([]),
+      isRedButtonActive: false,
+
+      triggerRedButton: () => {
+        set({ isRedButtonActive: true });
+        setTimeout(() => set({ isRedButtonActive: false }), 2000); // Effect duration total
+      },
 
       setVolume: (v) => set({ volume: v }),
       addCoins: (amount) => set((state) => ({ coins: state.coins + amount })),
