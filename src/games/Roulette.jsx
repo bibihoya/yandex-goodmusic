@@ -50,6 +50,9 @@ export default function Roulette() {
 
       if (winAmount === 0) {
         setIsFlashing(true);
+        // Play the flashbang sound
+        const flashSound = new Audio('/flashbang-gah-dayum.mp3');
+        flashSound.play().catch((e) => console.warn("Не удалось проиграть звук:", e));
         setTimeout(() => setIsFlashing(false), 450); // Exact jump scare duration: 0.2 + 0.15 + 0.1
       }
     }, 2000);
