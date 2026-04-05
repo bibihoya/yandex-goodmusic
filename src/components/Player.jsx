@@ -2,38 +2,24 @@ import { useState } from 'react';
 import { useProgression } from '../store/useProgression';
 import VolumeControl from './VolumeControl';
 import { Play, Pause, SkipForward, SkipBack } from 'lucide-react';
-import { askAIRadio } from '../api/aiRadio';
 
 export default function Player() {
   const { playlist, uiState } = useProgression();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  
-  // AI Radio state
-  const [aiQuery, setAiQuery] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
-  const [isAiLoading, setIsAiLoading] = useState(false);
 
   const track = playlist[currentIdx] || "В плейлисте нет треков";
 
   const handleNext = () => {
+      if (!uiState.skipsEnabled) return alert("Сначала купите возможность скипать треки!");
       if (playlist.length === 0) return;
       setCurrentIdx((currentIdx + 1) % playlist.length);
   };
 
   const handlePrev = () => {
+      if (!uiState.skipsEnabled) return alert("Сначала купите возможность скипать треки!");
       if (playlist.length === 0) return;
       setCurrentIdx((currentIdx - 1 + playlist.length) % playlist.length);
-  };
-
-  const handleAiSearch = async () => {
-      if (!aiQuery.trim()) return;
-      setIsAiLoading(true);
-      setAiResponse('');
-      
-      const res = await askAIRadio(aiQuery, uiState.aiTuned);
-      setAiResponse(res);
-      setIsAiLoading(false);
   };
 
   return (
@@ -49,13 +35,13 @@ export default function Player() {
         </div>
         
         <div className="flex items-center gap-6 mb-4">
-            <button onClick={handlePrev} className="p-3 bg-gray-700 rounded-full hover:bg-gray-600">
+            <button onClick={handlePrev} className={`p-3 rounded-full ${uiState.skipsEnabled ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-800 opacity-50 cursor-not-allowed'}`}>
                 <SkipBack size={24} />
             </button>
             <button onClick={() => setIsPlaying(!isPlaying)} className="p-4 bg-blue-600 rounded-full hover:bg-blue-500">
                 {isPlaying ? <Pause size={32} /> : <Play size={32} />}
             </button>
-            <button onClick={handleNext} className="p-3 bg-gray-700 rounded-full hover:bg-gray-600">
+            <button onClick={handleNext} className={`p-3 rounded-full ${uiState.skipsEnabled ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-800 opacity-50 cursor-not-allowed'}`}>
                 <SkipForward size={24} />
             </button>
         </div>
@@ -69,32 +55,30 @@ export default function Player() {
         )}
       </div>
 
-      {/* AI Radio Section */}
-      <div className="flex-1 flex flex-col p-4 border border-purple-500/30 rounded-lg bg-gray-900/50">
+      {/* Playlist Section Instead of AI Radio */}
+      <div className="flex-1 flex flex-col p-4 border border-purple-500/30 rounded-lg bg-gray-900/50 max-h-[300px]">
           <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
-              🤖 ИИ Радио {uiState.aiTuned ? '(Премиум)' : '(Сломано)'}
+              📋 Мои треки
           </h3>
-          <p className="text-xs mb-4 opacity-70">Попроси у ИИ рекомендацию песни или факт.</p>
-          
-          <div className="flex gap-2 mb-4">
-              <input 
-                  type="text" 
-                  value={aiQuery}
-                  onChange={(e) => setAiQuery(e.target.value)}
-                  placeholder={uiState.aiTuned ? "Например: Посоветуй немного джаза" : "П0ВРЕЖДЕННЫЙ ВВ0Д.."}
-                  className="flex-1 p-2 bg-gray-800 text-white rounded border border-gray-600"
-              />
-              <button 
-                  onClick={handleAiSearch}
-                  disabled={isAiLoading}
-                  className="btn-primary whitespace-nowrap"
-              >
-                  {isAiLoading ? '...' : 'Спросить ИИ'}
-              </button>
-          </div>
+          <p className="text-xs mb-4 opacity-70">
+            Здесь хранятся добытые потом и кровью композиции.
+          </p>
 
-          <div className="flex-1 p-3 bg-black/40 rounded border border-gray-700 text-sm overflow-y-auto min-h-[100px]">
-              {aiResponse ? aiResponse : <span className="opacity-40">Ожидание запроса...</span>}
+          <div className="flex-1 overflow-y-auto pr-2 space-y-2">
+             {playlist.length === 0 ? (
+                <div className="p-3 bg-black/40 rounded border border-gray-700 text-sm opacity-50 text-center mt-4">
+                   Список пуст... Поиграй в змейку!
+                </div>
+             ) : (
+                playlist.map((item, idx) => (
+                   <div 
+                     key={idx} 
+                     className={`p-2 rounded text-sm border ${idx === currentIdx ? 'bg-blue-900/50 border-blue-500' : 'bg-black/40 border-gray-700'}`}
+                   >
+                     {idx + 1}. {item}
+                   </div>
+                ))
+             )}
           </div>
       </div>
     </div>

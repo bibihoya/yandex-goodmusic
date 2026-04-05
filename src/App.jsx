@@ -48,17 +48,37 @@ function FakeAd() {
   if (!uiState.adsEnabled) return null;
 
   return (
-    <div className="fixed top-20 right-10 w-64 bg-yellow-400 border-4 border-red-500 p-4 text-center z-40 transform rotate-3 shadow-2xl animate-pulse text-black">
+    <a 
+      href="https://hse-tex.me/course-2/mathematical-analysis.pdf" 
+      target="_blank" 
+      rel="noreferrer"
+      className="fixed top-20 right-10 w-64 bg-yellow-400 border-4 border-red-500 p-4 text-center z-40 transform rotate-3 shadow-2xl animate-pulse text-black cursor-pointer hover:scale-105 transition-transform block"
+    >
       <h3 className="font-extrabold text-xl text-red-600 flash">🚀 ВЫИГРАЙ 1 000 000 МОНЕТ!</h3>
       <p className="text-xs mb-2">Кликни здесь, чтобы забрать свой ежедневный приз в R.Казино!*</p>
-      <p className="text-[10px] opacity-70">*Вообще-то ты не можешь кликнуть, потому что это фейковая реклама.</p>
-      <p className="mt-2 text-sm font-bold">(Купи 'Антирекламу', чтобы убрать меня!)</p>
-    </div>
+      <p className="text-[10px] opacity-70">*Не ведись, это матан!</p>
+      <p className="mt-2 text-sm font-bold opacity-80">(Купи 'Антирекламу', чтобы убрать меня)</p>
+    </a>
   );
 }
 
 function MainContent() {
   const { uiState, playlist } = useProgression();
+
+  useEffect(() => {
+    // Intercept F5 or Ctrl+R to play an insane animation before reloading
+    const handleKeyDown = (e) => {
+      if (e.key === 'F5' || (e.ctrlKey && e.key === 'r') || (e.metaKey && e.key === 'r')) {
+        e.preventDefault();
+        document.body.classList.add('animate-crazy-refresh');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Show snake game always in the broken view
   const isSnakeAvailable = true;

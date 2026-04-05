@@ -138,3 +138,27 @@ body, html, #root {
   margin: 0;
   padding: 0;
 }
+
+@keyframes crazy-refresh {
+  0% { transform: rotate(0deg) translateY(0) scale(1); }
+  25% { transform: rotate(90deg) translateY(-100px) scale(1.2); }
+  50% { transform: rotate(180deg) translateY(0) scale(0.8); }
+  75% { transform: rotate(270deg) translateY(-100px) scale(1.2); }
+  100% { transform: rotate(360deg) translateY(0) scale(1); }
+}
+
+.animate-crazy-refresh * {
+  animation: crazy-refresh 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
+  pointer-events: none;
+  transform-origin: center center;
+}
+
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.flash {
+  animation: flash 0.5s infinite;
+}
