@@ -63,26 +63,33 @@ function FakeAd() {
 }
 
 function RedButtonEffect() {
-  const { isRedButtonActive } = useProgression();
+  const { redButtonNonce } = useProgression();
+  const [active, setActive] = useState(false);
   
   useEffect(() => {
-    if (isRedButtonActive) {
+    if (redButtonNonce > 0) {
+      setActive(true);
       const s1 = new Audio('/flashbang-gah-dayum.mp3');
       const s2 = new Audio('/headshot_1.mp3');
       s1.play().catch(() => {});
       s2.play().catch(() => {});
+      
+      const timer = setTimeout(() => {
+        setActive(false);
+      }, 1600);
+      
+      return () => clearTimeout(timer);
     }
-  }, [isRedButtonActive]);
+  }, [redButtonNonce]);
 
-  if (!isRedButtonActive) return null;
+  if (!active) return null;
 
   return (
-    <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black animate-red-button-overlay">
+    <div key={redButtonNonce} className="fixed inset-0 z-[10000] flex items-center justify-center bg-black animate-red-button-overlay">
        <video 
          src="/gustokashin.MP4" 
          autoPlay 
          className="max-h-screen w-full object-contain"
-         onEnded={(e) => e.target.parentElement.style.opacity = 0}
        />
     </div>
   );

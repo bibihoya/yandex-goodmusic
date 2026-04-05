@@ -45,11 +45,10 @@ export const useProgression = create(
       quizProgress: { easy: 0, medium: 0, hard: 0 },
       snakeHighScore: 0,
       uiState: getDerivedUiState([]),
-      isRedButtonActive: false,
+      redButtonNonce: 0,
 
       triggerRedButton: () => {
-        set({ isRedButtonActive: true });
-        setTimeout(() => set({ isRedButtonActive: false }), 2000); // Effect duration total
+        set((state) => ({ redButtonNonce: state.redButtonNonce + 1 }));
       },
 
       setVolume: (v) => set({ volume: v }),
