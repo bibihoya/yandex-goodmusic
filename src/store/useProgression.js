@@ -12,7 +12,8 @@ const UPGRADE_COSTS = {
 const getDerivedUiState = (purchases) => {
   const count = purchases.length;
   let theme = 'terrible';
-  if (count >= 4) theme = 'premium';
+  if (count >= 5) theme = 'yandex_music';
+  else if (count >= 3) theme = 'premium';
   else if (count >= 2) theme = 'stable';
   else if (count >= 1) theme = 'beta';
 

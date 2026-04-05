@@ -31,6 +31,17 @@
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+@keyframes vibe-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(3deg);
+    opacity: 0.8;
+  }
+}
+
 .theme-terrible {
   animation: rainbow 10s infinite;
   font-family: var(--font-comic);

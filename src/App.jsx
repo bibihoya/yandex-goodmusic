@@ -4,7 +4,9 @@ import Player from './components/Player';
 import Shop from './components/Shop';
 import Quiz from './components/Quiz';
 import SnakeGame from './games/SnakeGame';
+import Roulette from './games/Roulette';
 import DevLog from './components/DevLog';
+import YandexMusicClone from './components/YandexMusicClone';
 import './index.css';
 
 function ErrorBoundaryFallback({ error }) {
@@ -61,6 +63,10 @@ function MainContent() {
   // Show snake game strictly if playlist is empty or if they are in 'beta/stable/premium'
   const isSnakeAvailable = playlist.length === 0 || uiState.theme !== 'terrible';
 
+  if (uiState.theme === 'yandex_music') {
+    return <YandexMusicClone />;
+  }
+
   return (
     <div className={`min-h-screen theme-${uiState.theme} transition-colors duration-1000 overflow-x-hidden p-6 relative flex flex-col items-center`}>
       <header className="w-full max-w-6xl flex justify-between items-center py-4 mb-8">
@@ -89,6 +95,11 @@ function MainContent() {
           <div className="grid md:grid-cols-2 gap-4">
             {isSnakeAvailable && <SnakeGame />}
             <Quiz />
+          </div>
+          
+          {/* New Game: Roulette */}
+          <div className="w-full">
+            <Roulette />
           </div>
         </div>
 
