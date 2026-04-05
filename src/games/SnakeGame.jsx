@@ -7,12 +7,13 @@ const INITIAL_DIRECTION = [0, -1];
 const SPEED = 150;
 
 const ALL_TRACKS = [
-  "Darude - Sandstorm", 
-  "Rick Astley - Never Gonna Give You Up", 
-  "Smash Mouth - All Star", 
-  "Vitas - 7th Element", 
-  "Eduard Khil - Trololo",
-  "O-Zone - Dragostea Din Tei"
+  "КИНО - Группа крови",
+  "Дима Билан - Я твой номер один",
+  "А4 - Лама Мама",
+  "Weezer - Buddy Holly",
+  "Nabeel - Lazim alshams",
+  "Betsy, Мария Янковская - Сигма Бой",
+  "Синтий трактор — Синий Трактор"
 ];
 
 export default function SnakeGame() {
