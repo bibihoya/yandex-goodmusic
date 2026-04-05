@@ -1,29 +1,71 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useProgression } from '../store/useProgression';
 import VolumeControl from './VolumeControl';
 import { Play, Pause, SkipForward, SkipBack } from 'lucide-react';
 import { TRACK_SOURCES } from './YandexMusicClone';
-import { useRef, useEffect } from 'react';
+
+// DSP Math for absolute trash distortion
+function makeDistortionCurve(amount) {
+  const k = typeof amount === 'number' ? amount : 50;
+  const n_samples = 44100;
+  const curve = new Float32Array(n_samples);
+  const deg = Math.PI / 180;
+  for (let i = 0; i < n_samples; ++i) {
+    const x = (i * 2) / n_samples - 1;
+    curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+  }
+  return curve;
+}
 
 export default function Player() {
   const { playlist, uiState, volume } = useProgression();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const audioCtxRef = useRef(null);
+  const sourceNodeRef = useRef(null);
 
   const track = playlist[currentIdx] || "В плейлисте нет треков";
   const trackSrc = TRACK_SOURCES[track] || "";
 
-  // Listen to volume changes
+  // Initialize Web Audio API and listen to volume
   useEffect(() => {
     if (!audioRef.current) return;
+    
+    // Create the nightmare processing chain once
+    if (!audioCtxRef.current) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+            audioCtxRef.current = new AudioContext();
+            sourceNodeRef.current = audioCtxRef.current.createMediaElementSource(audioRef.current);
+            
+            // 1. Muffle it (lowpass filter)
+            const lowpass = audioCtxRef.current.createBiquadFilter();
+            lowpass.type = "lowpass";
+            lowpass.frequency.value = 600; // Sounds like playing from under water
+            
+            // 2. Overdrive / Clip it heavily (WaveShaper)
+            const distortion = audioCtxRef.current.createWaveShaper();
+            distortion.curve = makeDistortionCurve(800); // 800 = aggressive ear rape clipping
+            distortion.oversample = '4x';
+
+            // String them together
+            sourceNodeRef.current.connect(lowpass);
+            lowpass.connect(distortion);
+            distortion.connect(audioCtxRef.current.destination);
+        }
+    }
+
     audioRef.current.volume = (volume || 50) / 100;
   }, [volume]);
 
-  // Handle play/pause
+  // Handle play/pause with Context Resuming
   useEffect(() => {
     if (!audioRef.current) return;
     if (isPlaying) {
+      if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
+         audioCtxRef.current.resume();
+      }
       audioRef.current.play().catch(() => {});
     } else {
       audioRef.current.pause();
@@ -49,6 +91,7 @@ export default function Player() {
       <audio 
         ref={audioRef}
         src={trackSrc}
+        crossOrigin="anonymous"
         onEnded={handleNext}
       />
       

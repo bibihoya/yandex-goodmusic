@@ -63,6 +63,11 @@ function FakeAd() {
 }
 
 function VipBanners() {
+  const { purchasedUpgrades } = useProgression();
+
+  // Убираем шакальные VIP бейджи, если куплен нормальный дизайн
+  if (purchasedUpgrades.includes('design_upgrade') || purchasedUpgrades.includes('yandex_music_unlock')) return null;
+
   return (
     <div className="hidden xl:flex fixed left-4 top-0 bottom-0 w-[200px] flex-col justify-around py-8 pointer-events-none opacity-80 z-0">
        {Array.from({ length: 4 }).map((_, i) => (

@@ -37,6 +37,7 @@ export const useProgression = create(
   persist(
     (set, get) => ({
       coins: 0,
+      volume: 50,
       level: 0,
       streak: 0,
       purchasedUpgrades: [],
@@ -45,6 +46,7 @@ export const useProgression = create(
       snakeHighScore: 0,
       uiState: getDerivedUiState([]),
 
+      setVolume: (v) => set({ volume: v }),
       addCoins: (amount) => set((state) => ({ coins: state.coins + amount })),
       
       purchaseUpgrade: (upgradeId) => {

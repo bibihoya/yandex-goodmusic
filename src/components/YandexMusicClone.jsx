@@ -4,20 +4,13 @@ import { Play, Pause, SkipForward, SkipBack, Search, Home, Mic2, Heart, ListMusi
 
 // You can plug real MP3 urls here later. Right now they are just nulls to avoid errors.
 export const TRACK_SOURCES = {
-  "LIL UZI VERT - XO TOUR Llif3": "", 
-  "Travis Scott - SICKO MODE": "", 
-  "Playboi Carti - Magnolia": "", 
-  "Kanye West - Father Stretch...": "", 
-  "Oxxxymiron - Город под подошвой": "",
-  "Скриптонит - Цепи": "",
-  "Pharaoh - Дико, например": "",
-  "Boulevard Depo - Кащенко": "",
-  "Darude - Sandstorm": "", 
-  "Rick Astley - Never Gonna Give You Up": "", 
-  "Smash Mouth - All Star": "", 
-  "Vitas - 7th Element": "", 
-  "Eduard Khil - Trololo": "",
-  "O-Zone - Dragostea Din Tei": ""
+  "КИНО - Группа крови": "/Группа крови.mp3", 
+  "Дима Билан - Я твой номер один": "/Я твой номер один.mp3", 
+  "А4 - Лама Мама": "/А4_ЛАМА_МАМА_ПРЕМЬЕРА_КЛИПА_!_.mp3", 
+  "Weezer - Buddy Holly": "/Weezer - Buddy Holly (2024 Remaster).mp3", 
+  "Nabeel - Lazim alshams": "/nabeel_lazim_alshams_نبيل_لازم_الشمس_Official_Audio.mp3",
+  "Betsy, Мария Янковская - Сигма Бой": "/Betsy,_Мария_Янковская_Сигма_Бой_official_Audio.mp3",
+  "Синтий трактор — Синий Трактор": ""
 };
 
 export default function YandexMusicClone() {

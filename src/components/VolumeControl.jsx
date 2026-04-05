@@ -2,8 +2,7 @@ import { useState, useRef } from 'react';
 import { useProgression } from '../store/useProgression';
 
 export default function VolumeControl() {
-  const { uiState } = useProgression();
-  const [volume, setVolume] = useState(50);
+  const { uiState, volume, setVolume } = useProgression();
   const containerRef = useRef(null);
 
   const isChaotic = uiState.volumeControlType === 'chaotic';
@@ -18,10 +17,10 @@ export default function VolumeControl() {
 
   const handleChange = (e) => {
     if (isChaotic) {
-      // In chaotic mode, you might not get the volume you asked for!
-      const jump = Math.random() > 0.5 ? Math.random() * 80 : e.target.value;
+      // 100% random volume jump directly ignoring user input
+      const jump = Math.random() * 100;
       setVolume(jump);
-      // throw an intentional silent error for DevLog
+      // throw an intentional silent error for DevLog occasionally
       if (Math.random() > 0.8) setTimeout(() => { throw new Error("Ползунок громкости оторвался от реальности"); }, 10);
     } else {
       setVolume(e.target.value);
